@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C58282D0-60D3-4D86-A5F0-D4268F62C3EE}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="passgen.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="android\apassgen.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="passgen">
+        <MSBuild Projects="passgen.dproj"/>
+    </Target>
+    <Target Name="passgen:Clean">
+        <MSBuild Projects="passgen.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="passgen:Make">
+        <MSBuild Projects="passgen.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="apassgen">
+        <MSBuild Projects="android\apassgen.dproj"/>
+    </Target>
+    <Target Name="apassgen:Clean">
+        <MSBuild Projects="android\apassgen.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="apassgen:Make">
+        <MSBuild Projects="android\apassgen.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="passgen;apassgen"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="passgen:Clean;apassgen:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="passgen:Make;apassgen:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
